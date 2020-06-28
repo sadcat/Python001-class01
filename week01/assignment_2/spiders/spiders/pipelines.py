@@ -10,7 +10,7 @@ from itemadapter import ItemAdapter
 
 class SpidersPipeline:
     def process_item(self, item, spider):
-        with open('oupput.csv', 'a+') as file:
+        with open('oupput.csv', 'a+', encoding='utf-8') as file:
             line = "{title},{movie_type},{debut}\n".format(
                 title=item['title'],
                 movie_type=item['movie_title'],
