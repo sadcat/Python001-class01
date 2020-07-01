@@ -1,11 +1,19 @@
 import scrapy
 from spiders.items import MovieItem
 
+_URL = 'https://maoyan.com/films?showType=3'
+
 
 class MovieSpider(scrapy.Spider):
   name = 'movie'
   allowed_domains = ['mouyan.com']
-  start_urls = ['https://maoyan.com/films?showType=3']
+  start_urls = [_URL]
+
+  def start_requests(self):
+    try:
+      yield scrapy.Request(url=_URL, callback=self.parse, dont_filter=False)
+    except Exception as ex:
+      print(ex)
 
   def parse(self, response):
     items = []
