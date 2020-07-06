@@ -1,4 +1,5 @@
-学习笔记
+### sample graph of assignment 2
+<img src="https://raw.githubusercontent.com/sadcat/Python001-class01/master/week03/assignment2/sample.png" width="437" height="330">
 
 ### twisted
 - event driven
