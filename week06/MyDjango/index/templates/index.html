@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>search comment!</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <div><span>Movies:</span>
+        <select id="movie_selector" v-model="selected">
+          <option v-for="option in movies" v-bind:value="option.id">
+              {% verbatim %}{{ option.title }}{% endverbatim %}
+          </option>
+        </select>
+    </div>
+    <div><span>Keyword:</span>
+        <input type="text" name="search" v-model="criteria" />
+    </div>
+    <div>
+        <button v-on:click="search">search</button>
+    </div>
+    <div style="margin-bottom: 2px" v-for="item in results">
+        <div>{% verbatim %}id:{{ item.id }}{% endverbatim %}</div>
+        <div>{% verbatim %}stars: {{item.stars}}{% endverbatim %}</div>
+        <div>{% verbatim %}{{ item.txt }}{% endverbatim %}</div>
+        <hr />
+    </div>
+</div>
+
+<script type="text/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    criteria: '',
+    results: [],
+    movies: [],
+    selected: ''
+  },
+  mounted: function() {
+    fetch('/movies', {
+        method: 'get'
+    }).then(response => response.json())
+      .then(data => this.movies = data)
+  },
+  methods: {
+    search: function(_event) {
+        if (this.selected == '') {
+            alert('choose a move first.')
+            return
+        }
+        fetch('/search/' + this.selected + '/' +this.criteria, {
+            method: 'get'
+        }).then(response => response.json())
+          .then(data => this.results = data)
+    }
+  }
+})
+</script>
+
+</body>
+</html>
+
