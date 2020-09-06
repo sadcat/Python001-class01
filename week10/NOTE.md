@@ -1,9 +1,14 @@
 ## Steps to setup project
 
-### nest (crawler)
+### nest (scrapy project, crawler is ```soda```)
 
 - modify MySQL settings
-- scrapy crawl
+- setup cron job
+  - run ```crontab -e```
+  - add following line
+  ```
+  @daily /path/scrapy crawl soda
+  ```
 
 ### webapps (dashboard)
 
